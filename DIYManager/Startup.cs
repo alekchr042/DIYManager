@@ -1,10 +1,14 @@
+using DIYManager.Models.Implementation;
+using DIYManager.Models.Interfaces;
+using DIYManager.Services.Implementation;
+using DIYManager.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace DIYManager
 {
@@ -26,6 +30,13 @@ namespace DIYManager
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.Configure<DatabaseSettings>(
+                Configuration.GetSection(nameof(DatabaseSettings)));
+
+            services.AddSingleton<IDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
+            services.AddSingleton<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +78,8 @@ namespace DIYManager
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }
