@@ -4,9 +4,22 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.navbar {
+  background-color: #726567;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.nav-link:hover {
+  color: #EFEADD !important;
+}
+
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;

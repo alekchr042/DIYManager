@@ -9,13 +9,41 @@ code {
   color: #e01a76;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+body {
+  background-color: #EFEADD;
 }
 
+.validation-error {
+    color: red;
+    font-size: .75rem;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #5B3547;
+  border-color: #5B3547;
+}
+
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #8B677C;
+    border-color: #8B677C;
+  }
+
+  .btn-primary:focus, .btn-primary:active {
+    color: #fff;
+    background-color: #5B3547!important;
+    border-color: #5B3547!important;
+  }
+
+  .btn-primary:disabled {
+    color: #fff;
+    background-color: #5B3547;
+    border-color: #5B3547;
+  }
+
 fa-icon svg {
-    width: inherit !important;
-    height: inherit !important;
+  width: inherit !important;
+  height: inherit !important;
 }

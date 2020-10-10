@@ -11,9 +11,11 @@ namespace DIYManager.Models.Interfaces
 
         string Name { get; set; }
 
-        string Password { get; set; }
+        string Username { get; set; }
 
-        int Number { get; set; }
+        byte[] PasswordHash { get; set; }
+
+        byte[] PasswordSalt { get; set; }
 
     }
 }

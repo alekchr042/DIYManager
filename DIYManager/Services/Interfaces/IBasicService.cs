@@ -8,7 +8,7 @@ namespace DIYManager.Services.Interfaces
 
         T Get(object parameter);
 
-        void Add(T newObject);
+        T Add(T newObject);
 
         void Update(T objectToUpdate);
 
