@@ -31,7 +31,15 @@ namespace DIYManager.Services.Implementation
 
         public User Get(object parameter)
         {
-            throw new System.NotImplementedException();
+            User result = null;
+            var isSuccess = int.TryParse(parameter.ToString(), out int number);
+            
+            if (isSuccess)
+            {
+                result = users.Find(x => x.Number == number).FirstOrDefault();
+            }
+
+            return result;
         }
 
         public IEnumerable<User> GetAll()

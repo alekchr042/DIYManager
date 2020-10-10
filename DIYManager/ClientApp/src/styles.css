@@ -14,3 +14,8 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+fa-icon svg {
+    width: inherit !important;
+    height: inherit !important;
+}

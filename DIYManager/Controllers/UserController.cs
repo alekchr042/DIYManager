@@ -21,11 +21,26 @@ namespace DIYManager.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<User> GetAll()
+        public ActionResult<IEnumerable<User>> Get()
         {
             var users = userService.GetAll();
 
-            return users;
+            return Ok(users);
+        }
+
+        [HttpGet("{number}")]
+        public ActionResult<User> Get(int number)
+        {
+            var user = userService.Get(number);
+
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
