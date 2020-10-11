@@ -12,6 +12,10 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { JwtInterceptor } from './logic/jwt-token-interceptor';
+import { AppRoutingModule } from './logic/app-routing.module';
+
+
 
 @NgModule({
   declarations: [
@@ -28,6 +32,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     HttpClientModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    AppRoutingModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
@@ -36,7 +41,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
       { path: 'sign-up', component: SignUpComponent },
     ])
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

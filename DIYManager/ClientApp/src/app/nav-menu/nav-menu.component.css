@@ -29,3 +29,9 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+.nav-button {
+  color: #fff;
+  background-color: #5B3547;
+  border-color: #5B3547;
+}
