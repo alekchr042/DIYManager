@@ -29,6 +29,7 @@ namespace DIYManager.Controllers
             this.appSettings = appSettings;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<User>> Get()
         {

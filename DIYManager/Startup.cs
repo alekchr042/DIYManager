@@ -3,6 +3,7 @@ using DIYManager.Models.Interfaces;
 using DIYManager.Services.Implementation;
 using DIYManager.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -45,6 +46,13 @@ namespace DIYManager
             services.Configure<AppSettings>(
                 Configuration.GetSection(nameof(AppSettings)));
 
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -57,7 +65,7 @@ namespace DIYManager
                     OnTokenValidated = context =>
                     {
                         var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                        var userId = int.Parse(context.Principal.Identity.Name);
+                        var userId = context.Principal.Identity.Name; 
                         var user = userService.Get(userId);
                         if (user == null)
                         {
@@ -116,6 +124,9 @@ namespace DIYManager
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
