@@ -16,9 +16,6 @@ import { first } from 'rxjs/operators';
 export class SignInComponent {
 
   faCrow = faCrow;
-  //http: HttpClient;
-  //baseUrl: string;
-  //router: Router;
   private signInForm: FormGroup;
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
@@ -33,12 +30,6 @@ export class SignInComponent {
     @Inject('BASE_URL') private baseUrl: string,
     private router: Router,
     private userService: UserService) {
-    //http.get<User[]>(baseUrl + 'user/1').subscribe(result => {
-    //  this.users = result;
-    //}, error => console.error(error));
-    //this.http = http;
-    //this.baseUrl = baseUrl;
-    //this.router = router;
 
     this.signInForm = new FormGroup({
       username: new FormControl('', [

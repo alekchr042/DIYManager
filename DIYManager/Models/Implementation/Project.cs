@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace DIYManager.Models.Implementation
 {
-    public class User : IUser
+    public class Project : IProject
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -13,21 +13,17 @@ namespace DIYManager.Models.Implementation
 
         public string Name { get; set; }
 
-        public string Username { get; set; }
+        public string Description { get; set; }
 
-        public byte[] PasswordHash { get; set; }
+        public User Owner { get; set; }
 
-        public byte[] PasswordSalt { get; set; }
-
-        public User()
+        public Project(NewProjectDTO newProjectDTO)
         {
-        }
+            Name = newProjectDTO.Name;
 
-        public User(RegisterUserDTO registerUserDTO)
-        {
-            Name = registerUserDTO.Name;
+            Description = newProjectDTO.Description;
 
-            Username = registerUserDTO.Username;
+            Owner = newProjectDTO.Owner;
         }
     }
 }

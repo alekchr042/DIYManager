@@ -21,10 +21,11 @@ export class UserService {
   }
 
   login(username, password) {
-    return this.http.post<User>(this.baseUrl + 'user/AuthenticateUser', { username, password }).pipe(map((user:any) => {
-      localStorage.setItem('user', JSON.stringify(user));
-      this.userSubject.next(user);
-      return user;
+    return this.http.post<User>(this.baseUrl + 'user/AuthenticateUser', { username, password })
+      .pipe(map((user: any) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+        return user;
     }));
   }
 
@@ -36,7 +37,7 @@ export class UserService {
   }
 
   isLoggedIn() {
-    const user = this.userValue;
+    const user = this.getCurrentUser;
 
     if (user === null || user === undefined)
       return false;
@@ -46,7 +47,7 @@ export class UserService {
     return !isExpired;
   }
 
-  public get userValue(): User {
+  public get getCurrentUser(): User {
     return this.userSubject.value;
   }
 }

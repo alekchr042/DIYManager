@@ -27,8 +27,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\album\my-projects.component.ts" />
+    <None Remove="ClientApp\src\app\models\newProjectDTO.ts" />
+    <None Remove="ClientApp\src\app\models\project.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ClientApp\src\app\logic\helpers\" />
     <Folder Include="ClientApp\src\app\logic\services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\album\my-projects.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\newProjectDTO.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\project.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
