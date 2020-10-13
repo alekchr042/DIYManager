@@ -17,6 +17,9 @@
       <div class="input-group">
         <input type="text" id="descriptionInput" class="form-control" placeholder="Description" formControlName="description">
       </div>
+      <label for="nameInput">Thumbnail</label>
+      <input type="file" id="fileInput" accept="image/*" (input)="handleFileInput($event.target.files)" style="display:none" #fileInput />
+      <button type="button" class="btn-block btn-primary" (click)="toggleFileInput()" >Select file</button>
     </div>
   </div>
   <div class="modal-footer">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,7 +9,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AddProjectModalComponent {
 
+  @ViewChild('fileInput', { static: true }) fileInput: ElementRef;
+
   public addProjectForm: FormGroup;
+
+  private uploadedFile: any;
 
   constructor(public activeModal: NgbActiveModal) {
     this.addProjectForm = new FormGroup({
@@ -17,19 +21,38 @@ export class AddProjectModalComponent {
         Validators.required
       ]),
       description: new FormControl(''),
+      file: new FormControl(''),
     });
   }
 
   get name() {
     return this.addProjectForm.get("name");
   }
+
   get description() {
     return this.addProjectForm.get("description");
   }
 
+  toggleFileInput() {
+    this.fileInput.nativeElement.click();
+  }
+
+  handleFileInput(files: FileList) {
+    this.uploadedFile = files.item(0);
+  }
+
   onSubmit() {
     if (this.addProjectForm.valid) {
-      this.activeModal.close(this.addProjectForm.getRawValue());
+      var newProject = new FormData();
+
+      if (this.uploadedFile != null) {
+        newProject.append('File', this.uploadedFile);
+      }
+
+      newProject.append('Description', this.description.value);
+      newProject.append('Name', this.name.value);
+
+      this.activeModal.close(newProject);
     }
   }
 }

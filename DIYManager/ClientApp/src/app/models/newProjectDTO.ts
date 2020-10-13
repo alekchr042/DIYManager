@@ -4,4 +4,9 @@ export class newProjectDTO {
   name: string;
   description: string;
   owner: User;
+  file: any;
+
+  constructor() {
+
+  }
 }

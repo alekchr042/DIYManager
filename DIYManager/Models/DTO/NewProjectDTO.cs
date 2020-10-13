@@ -1,4 +1,5 @@
 ﻿using DIYManager.Models.Implementation;
+using Microsoft.AspNetCore.Http;
 
 namespace DIYManager.Models.DTO
 {
@@ -8,6 +9,8 @@ namespace DIYManager.Models.DTO
 
         public string Description { get; set; }
 
-        public User Owner { get; set; }
+        public string OwnerId { get; set; }
+
+        public IFormFile File { get; set; }
     }
 }

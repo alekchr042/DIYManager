@@ -25,7 +25,7 @@ export class ProjectsService {
     return this.http.get<Project[]>(this.baseUrl + 'projects');
   }
 
-  addNewProject(newProject: newProjectDTO) {
+  addNewProject(newProject: FormData) {
     return this.http.post(this.baseUrl + 'projects/AddNewProject', newProject);
   }
 }

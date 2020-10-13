@@ -3,7 +3,9 @@ using DIYManager.Models.Implementation;
 using DIYManager.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace DIYManager.Controllers
 {
@@ -34,11 +36,25 @@ namespace DIYManager.Controllers
 
         [HttpPost]
         [Route("AddNewProject")]
-        public ActionResult<Project> AddNewProject([FromBody]NewProjectDTO newProjectDTO)
+        public ActionResult<Project> AddNewProject([FromForm]NewProjectDTO newProjectDTO)
         {
-            var newProject = projectService.Add(new Project(newProjectDTO));
+            var newProject = new Project(newProjectDTO);
 
-            return newProject;
+            var owner = userService.Get(newProjectDTO.OwnerId);
+
+            newProject.Owner = owner;
+
+            var path = Path.GetTempFileName();
+
+            using (var stream =new  MemoryStream())
+            {
+                newProjectDTO.File.CopyTo(stream);
+
+                var fileContent = stream.ToArray();
+
+                newProject.Thumbnail = Convert.ToBase64String(fileContent);
+            }
+            return projectService.Add(newProject);
         }
     }
 }

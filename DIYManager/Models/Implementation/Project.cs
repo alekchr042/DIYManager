@@ -17,13 +17,13 @@ namespace DIYManager.Models.Implementation
 
         public User Owner { get; set; }
 
+        public string Thumbnail { get; set; }
+
         public Project(NewProjectDTO newProjectDTO)
         {
             Name = newProjectDTO.Name;
 
             Description = newProjectDTO.Description;
-
-            Owner = newProjectDTO.Owner;
         }
     }
 }

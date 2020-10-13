@@ -36,15 +36,12 @@ export class MyProjectsComponent {
   }
 
   public addProject() {
-    this.ngbModal.open(AddProjectModalComponent).result.then(result => {
+    this.ngbModal.open(AddProjectModalComponent).result.then((result : FormData) => {
       console.log(JSON.stringify(result));
 
-      var newProject = new newProjectDTO;
-      newProject.name = result.name;
-      newProject.description = result.description;
-      newProject.owner = this.userService.getCurrentUser;
+      result.append('OwnerId', this.userId);
 
-      this.projectsService.addNewProject(newProject).subscribe(result => {
+      this.projectsService.addNewProject(result).subscribe(result => {
         if (result != null)
           this.getProjects();
       });
