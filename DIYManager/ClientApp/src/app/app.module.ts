@@ -42,8 +42,8 @@ import { AddProjectModalComponent } from './add-project-modal/add-project-modal.
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
-      { path: 'sign-in', component: SignInComponent, canActivate: [AuthGuard] },
-      { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard] },
+      { path: 'sign-in', component: SignInComponent},
+      { path: 'sign-up', component: SignUpComponent },
       { path: 'my-projects', component: MyProjectsComponent, canActivate: [AuthGuard] },
     ])
   ],
