@@ -2,6 +2,7 @@
 using DIYManager.Models.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace DIYManager.Models.Implementation
 {
@@ -19,11 +20,22 @@ namespace DIYManager.Models.Implementation
 
         public string Thumbnail { get; set; }
 
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime LastModified { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime StartDate { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime FinishDate { get; set; }
+
         public Project(NewProjectDTO newProjectDTO)
         {
             Name = newProjectDTO.Name;
 
             Description = newProjectDTO.Description;
+
+            LastModified = DateTime.Now;
         }
     }
 }

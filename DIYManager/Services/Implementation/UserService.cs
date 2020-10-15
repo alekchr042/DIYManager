@@ -1,6 +1,7 @@
 ﻿using DIYManager.Models.Implementation;
 using DIYManager.Models.Interfaces;
 using DIYManager.Services.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,8 @@ namespace DIYManager.Services.Implementation
     {
         private readonly IMongoCollection<User> users;
 
-        public UserService(IDatabaseSettings databaseSettings)
+        public UserService(IDatabaseSettings databaseSettings,
+            IMemoryCache cache)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
 
@@ -36,7 +38,9 @@ namespace DIYManager.Services.Implementation
                     PasswordHash = user.PasswordHash,
                     PasswordSalt = user.PasswordSalt,
                 }))
+            {
                 return user;
+            }
 
             return null;
         }

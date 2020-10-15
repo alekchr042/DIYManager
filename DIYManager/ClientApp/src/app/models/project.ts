@@ -5,4 +5,5 @@ export class Project {
   description: string;
   owner: User;
   thumbnail: string;
+  lastModified: Date;
 }

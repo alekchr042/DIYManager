@@ -34,6 +34,15 @@ namespace DIYManager.Controllers
             return Ok(projects);
         }
 
+        [HttpGet]
+        [Route("{userId}")]
+        public ActionResult<IEnumerable<Project>> Get(string userId)
+        {
+            var projects = projectService.GetAllByUser(userId);
+
+            return Ok(projects);
+        }
+
         [HttpPost]
         [Route("AddNewProject")]
         public ActionResult<Project> AddNewProject([FromForm]NewProjectDTO newProjectDTO)
@@ -44,9 +53,7 @@ namespace DIYManager.Controllers
 
             newProject.Owner = owner;
 
-            var path = Path.GetTempFileName();
-
-            using (var stream =new  MemoryStream())
+            using (var stream = new  MemoryStream())
             {
                 newProjectDTO.File.CopyTo(stream);
 

@@ -9,6 +9,9 @@ namespace DIYManager.Models.Interfaces
         [BsonRepresentation(BsonType.ObjectId)]
         string Id { get; set; }
 
+        /// <summary>
+        /// Name to be displayed
+        /// </summary>
         string Name { get; set; }
 
         string Username { get; set; }

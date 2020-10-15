@@ -44,6 +44,13 @@ namespace DIYManager.Services.Implementation
             return result;
         }
 
+        public IEnumerable<Project> GetAllByUser(string id)
+        {
+            var result = projects.Find(x => x.Owner.Id == id).ToEnumerable();
+
+            return result;
+        }
+
         public void Update(Project objectToUpdate)
         {
             throw new NotImplementedException();

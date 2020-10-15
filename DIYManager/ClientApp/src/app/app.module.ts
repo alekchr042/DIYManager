@@ -18,6 +18,7 @@ import { MyProjectsComponent } from './album/my-projects.component';
 import { AuthGuard } from './logic/AuthGuard';
 import { ProjectCardComponent } from './project-card/project-card.component';
 import { AddProjectModalComponent } from './add-project-modal/add-project-modal.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AddProjectModalComponent } from './add-project-modal/add-project-modal.
     AddProjectModalComponent,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
