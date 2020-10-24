@@ -10,40 +10,53 @@ code {
 }
 
 body {
-  background-color: #EFEADD;
+  background-color: #efeadd;
 }
 
 .validation-error {
-    color: red;
-    font-size: .75rem;
-    margin-bottom: 1rem;
+  color: red;
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .btn-primary {
   color: #fff;
-  background-color: #5B3547;
-  border-color: #5B3547;
+  background-color: #5b3547;
+  border-color: #5b3547;
 }
 
-  .btn-primary:hover {
-    color: #fff;
-    background-color: #8B677C;
-    border-color: #8B677C;
-  }
+.btn-primary:hover {
+  color: #fff;
+  background-color: #8b677c;
+  border-color: #8b677c;
+}
 
-  .btn-primary:focus, .btn-primary:active {
-    color: #fff;
-    background-color: #5B3547!important;
-    border-color: #5B3547!important;
-  }
+.btn-primary:focus,
+.btn-primary:active {
+  color: #fff;
+  background-color: #5b3547 !important;
+  border-color: #5b3547 !important;
+}
 
-  .btn-primary:disabled {
-    color: #fff;
-    background-color: #5B3547;
-    border-color: #5B3547;
-  }
+.btn-primary:disabled {
+  color: #fff;
+  background-color: #5b3547;
+  border-color: #5b3547;
+}
 
 fa-icon svg {
   width: inherit !important;
   height: inherit !important;
+}
+
+fa-icon.img-project-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-project-card > svg {
+  width: 33% !important;
+  height: 33% !important;
+  color: #5b354780;
 }
