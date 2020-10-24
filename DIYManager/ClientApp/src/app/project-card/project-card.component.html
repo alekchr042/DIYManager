@@ -5,37 +5,21 @@
     class="img-project-card"
     #projectThumbnail
   />
-  <!-- <img
-    id="projectThumbnail"
-    [hidden]="isThumbnailAttached()"
-    class="img-project-card"
-    #projectThumbnail
-  /> -->
   <fa-icon
     class="img-project-card"
     [icon]="faCrow"
     [hidden]="isThumbnailAttached"
   ></fa-icon>
-  <!-- <svg
-    class="bd-placeholder-img card-img-top img-project-card"
-    width="100%"
-    height="225"
-    *ngIf="!isThumbnailAttached()"
-    xmlns="http://www.w3.org/2000/svg"
-    preserveAspectRatio="xMidYMid slice"
-    focusable="false"
-    role="img"
-    aria-label="Placeholder: Thumbnail"
-  >
-    <title>Placeholder</title>
-    <rect width="100%" height="100%" fill="#55595c" />
-    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-  </svg> -->
   <div class="card-body">
     <p class="card-text">{{ project.name }}</p>
+    <p class="card-text">{{ project.description }}</p>
     <div class="d-flex justify-content-between align-items-center">
       <div class="btn-group">
-        <button type="button" class="btn btn-sm btn-outline-secondary">
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          (click)="goToProjectDetails()"
+        >
           View
         </button>
         <button type="button" class="btn btn-sm btn-outline-secondary">

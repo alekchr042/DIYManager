@@ -48,7 +48,5 @@ namespace DIYManager.Models.Interfaces
         /// </summary>
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         DateTime FinishDate { get; set; }
-
-
     }
 }

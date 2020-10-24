@@ -1,24 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { JwtInterceptor } from './logic/jwt-token-interceptor';
-import { MyProjectsComponent } from './album/my-projects.component';
-import { AuthGuard } from './logic/AuthGuard';
-import { ProjectCardComponent } from './project-card/project-card.component';
-import { AddProjectModalComponent } from './add-project-modal/add-project-modal.component';
-import { DatePipe } from '@angular/common';
+import { AppComponent } from "./app.component";
+import { NavMenuComponent } from "./nav-menu/nav-menu.component";
+import { HomeComponent } from "./home/home.component";
+import { CounterComponent } from "./counter/counter.component";
+import { FetchDataComponent } from "./fetch-data/fetch-data.component";
+import { SignInComponent } from "./sign-in/sign-in.component";
+import { SignUpComponent } from "./sign-up/sign-up.component";
+import { JwtInterceptor } from "./logic/jwt-token-interceptor";
+import { MyProjectsComponent } from "./album/my-projects.component";
+import { AuthGuard } from "./logic/AuthGuard";
+import { ProjectCardComponent } from "./project-card/project-card.component";
+import { AddProjectModalComponent } from "./add-project-modal/add-project-modal.component";
+import { DatePipe } from "@angular/common";
+import { ProjectOverviewComponent } from "./project-overview/project-overview.component";
 
 @NgModule({
   declarations: [
@@ -31,29 +32,42 @@ import { DatePipe } from '@angular/common';
     SignUpComponent,
     MyProjectsComponent,
     ProjectCardComponent,
-    AddProjectModalComponent
+    AddProjectModalComponent,
+    ProjectOverviewComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     NgbModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
-      { path: 'sign-in', component: SignInComponent},
-      { path: 'sign-up', component: SignUpComponent },
-      { path: 'my-projects', component: MyProjectsComponent, canActivate: [AuthGuard] },
-    ])
+      { path: "", component: HomeComponent, pathMatch: "full" },
+      { path: "counter", component: CounterComponent },
+      {
+        path: "fetch-data",
+        component: FetchDataComponent,
+        canActivate: [AuthGuard],
+      },
+      { path: "sign-in", component: SignInComponent },
+      { path: "sign-up", component: SignUpComponent },
+      {
+        path: "my-projects",
+        component: MyProjectsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "project-overview",
+        component: ProjectOverviewComponent,
+        canActivate: [AuthGuard],
+      },
+    ]),
   ],
-  entryComponents: [
-    AddProjectModalComponent,
-  ],
+  entryComponents: [AddProjectModalComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    DatePipe],
-  bootstrap: [AppComponent]
+    DatePipe,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

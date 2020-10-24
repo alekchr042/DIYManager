@@ -1,46 +1,42 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { faCrow } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../models/User';
-import { UserService } from '../logic/UserService';
-import { first } from 'rxjs/operators';
+import { Component, Inject } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { faCrow } from "@fortawesome/free-solid-svg-icons";
+import { Router } from "@angular/router";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { BehaviorSubject, Observable } from "rxjs";
+import { User } from "../models/User";
+import { UserService } from "../logic/UserService";
+import { first } from "rxjs/operators";
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  selector: "app-sign-in",
+  templateUrl: "./sign-in.component.html",
+  styleUrls: ["./sign-in.component.css"],
 })
 export class SignInComponent {
-
   faCrow = faCrow;
   private signInForm: FormGroup;
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
 
   public userToAuthenticate: AuthenticateUserDTO = {
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   };
 
   constructor(
     private http: HttpClient,
-    @Inject('BASE_URL') private baseUrl: string,
     private router: Router,
-    private userService: UserService) {
-
+    private userService: UserService
+  ) {
     this.signInForm = new FormGroup({
-      username: new FormControl('', [
-        Validators.required
-      ]),
-      password: new FormControl('', [
-        Validators.required
-      ]),
+      username: new FormControl("", [Validators.required]),
+      password: new FormControl("", [Validators.required]),
     });
 
-    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+    this.userSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem("user"))
+    );
     this.user = this.userSubject.asObservable();
   }
 
@@ -55,14 +51,20 @@ export class SignInComponent {
   onSubmit() {
     if (this.signInForm.valid) {
       this.userToAuthenticate = this.signInForm.getRawValue();
-      this.userService.login(this.userToAuthenticate.username, this.userToAuthenticate.password).pipe(first())
+      this.userService
+        .login(
+          this.userToAuthenticate.username,
+          this.userToAuthenticate.password
+        )
+        .pipe(first())
         .subscribe(
-          data => {
-            this.router.navigate(['/counter']);
+          (data) => {
+            this.router.navigate(["/counter"]);
           },
-          error => {
-            console.log('error sign in');
-          });
+          (error) => {
+            console.log("error sign in");
+          }
+        );
     }
     //  this.http.post(this.baseUrl + 'user/AuthenticateUser', this.userToAuthenticate).subscribe((res: any) => {
     //    if (res.status = 200) {
@@ -79,5 +81,5 @@ export class SignInComponent {
 
 interface AuthenticateUserDTO {
   username: string;
-  password: string
+  password: string;
 }
