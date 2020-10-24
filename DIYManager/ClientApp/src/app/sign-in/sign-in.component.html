@@ -1,44 +1,39 @@
-<form
-  class="text-center form-signin"
-  [formGroup]="signInForm"
-  (ngSubmit)="onSubmit()"
->
-  <fa-icon class="form-header-icon" [icon]="faCrow"></fa-icon>
+  <form class="text-center form-signin"
+      [formGroup]="signInForm"
+      (ngSubmit)="onSubmit()">
+  <fa-icon class="form-header-icon"
+           [icon]="faCrow"></fa-icon>
   <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
   <label for="inputUsername" class="sr-only">Username</label>
-  <input
-    type="text"
-    id="inputName"
-    class="form-control"
-    placeholder="username"
-    formControlName="username"
-    autofocus
-  />
-  <div
-    *ngIf="username.invalid && (username.dirty || username.touched)"
-    class="validation-error"
-  >
+  <input type="text"
+         id="inputName"
+         class="form-control"
+         placeholder="username"
+         formControlName="username"
+         autofocus>
+  <div *ngIf="username.invalid && (username.dirty || username.touched)" class="validation-error">
     <div *ngIf="username.errors.required">Username is required.</div>
   </div>
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input
-    type="password"
-    id="inputPassword"
-    class="form-control"
-    formControlName="password"
-    placeholder="Password"
-  />
-  <div
-    *ngIf="password.invalid && (password.dirty || password.touched)"
-    class="validation-error"
-  >
+  <label for="inputPassword"
+         class="sr-only">Password</label>
+  <input type="password"
+         id="inputPassword"
+         class="form-control"
+         formControlName="password"
+         placeholder="Password">
+  <div *ngIf="password.invalid && (password.dirty || password.touched)" class="validation-error">
     <div *ngIf="password.errors.required">Password is required.</div>
   </div>
   <div class="checkbox mb-3 ml-2">
-    <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+    <label>
+      <input type="checkbox"
+             value="remember-me"> Remember me
+    </label>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">
+  <button class="btn btn-lg btn-primary btn-block"
+          type="submit">
     Sign in
   </button>
   <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </form>
+

@@ -1,24 +1,20 @@
 <section class="jumbotron text-center">
   <div class="container">
     <h1>My projects</h1>
-    <p class="lead text-muted">
-      Here are all your projects so far. You can see the details of each one, or
-      add a new project.
-    </p>
+    <p class="lead text-muted">Here are all your projects so far. You can see the details of each one, or add a new project.</p>
     <p>
-      <button class="btn btn-primary my-2" (click)="addProject()">
-        Add new project
-      </button>
+      <button class="btn btn-primary my-2" (click)="addProject()">Add new project</button>
       <a href="#" class="btn btn-secondary my-2">Secondary action</a>
     </p>
   </div>
 </section>
 <div class="album py-5 bg-light">
   <div class="container">
+
     <div class="row">
       <div class="col-md-4" *ngFor="let project of projects">
         <app-project-card [project]="project"></app-project-card>
+        </div>
       </div>
     </div>
-  </div>
 </div>
