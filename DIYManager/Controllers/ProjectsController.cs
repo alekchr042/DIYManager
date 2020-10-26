@@ -35,6 +35,15 @@ namespace DIYManager.Controllers
         }
 
         [HttpGet]
+        [Route("Get/{projectId}")]
+        public ActionResult<Project> GetById(string projectId)
+        {
+            var project = projectService.Get(projectId);
+
+            return Ok(project);
+        }
+
+        [HttpGet]
         [Route("{userId}")]
         public ActionResult<IEnumerable<Project>> Get(string userId)
         {

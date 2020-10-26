@@ -41,12 +41,12 @@ namespace DIYManager.Models.Interfaces
         /// Start date of the project
         /// </summary>
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        DateTime StartDate { get; set; }
+        DateTime? StartDate { get; set; }
 
         /// <summary>
         /// Finish date of the project
         /// </summary>
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        DateTime FinishDate { get; set; }
+        DateTime? FinishDate { get; set; }
     }
 }

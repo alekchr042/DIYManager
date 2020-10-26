@@ -31,3 +31,10 @@
     max-height: 20rem;
   }
 }
+
+.card-text-desc {
+  white-space: nowrap;
+  max-height: 3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

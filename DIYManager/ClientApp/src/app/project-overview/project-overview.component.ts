@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { first } from "rxjs/operators";
 import { ProjectDetailsService } from "../logic/services/project-details.service";
+import { ProjectsService } from "../logic/services/projects.service";
+import { Project } from "../models/project";
 import { ProjectDetails } from "../models/projectDetails";
 
 @Component({
@@ -12,10 +14,13 @@ import { ProjectDetails } from "../models/projectDetails";
 export class ProjectOverviewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private projectDetailsService: ProjectDetailsService
+    private projectDetailsService: ProjectDetailsService,
+    private projectsService: ProjectsService
   ) {}
 
   public projectDetails: ProjectDetails;
+
+  public project: Project;
 
   ngOnInit() {
     const projectId = this.route.snapshot.paramMap.get("id");
@@ -31,13 +36,17 @@ export class ProjectOverviewComponent implements OnInit {
           console.log("error - get project details");
         }
       );
+
+    this.projectsService
+      .getProject(projectId)
+      .pipe(first())
+      .subscribe(
+        (project) => {
+          this.project = project;
+        },
+        (error) => {
+          console.log("error - get project data");
+        }
+      );
   }
-  // this.userService.login(this.userToAuthenticate.username, this.userToAuthenticate.password).pipe(first())
-  // .subscribe(
-  //   data => {
-  //     this.router.navigate(['/counter']);
-  //   },
-  //   error => {
-  //     console.log('error sign in');
-  //   });
 }

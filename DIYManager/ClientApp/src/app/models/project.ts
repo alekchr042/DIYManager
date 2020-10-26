@@ -7,4 +7,6 @@ export class Project {
   owner: User;
   thumbnail: string;
   lastModified: Date;
+  startDate: Date;
+  finishDate: Date;
 }

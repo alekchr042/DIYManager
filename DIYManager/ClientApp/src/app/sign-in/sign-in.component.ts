@@ -65,17 +65,7 @@ export class SignInComponent {
             console.log("error sign in");
           }
         );
-    }
-    //  this.http.post(this.baseUrl + 'user/AuthenticateUser', this.userToAuthenticate).subscribe((res: any) => {
-    //    if (res.status = 200) {
-    //      localStorage.setItem('user', JSON.stringify(res.value));
-    //      this.userSubject.next(res.value);
-    //      this.router.navigate(['/counter']);
-    //      return res.value;
-    //    }
-    //  })
-    //}
-    else console.log("invalid sign in");
+    } else console.log("invalid sign in");
   }
 }
 

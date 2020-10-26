@@ -1,21 +1,27 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Project } from "../models/project";
-import { DatePipe } from "@angular/common";
-import { faCrow } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-project-card",
-  templateUrl: "./project-card.component.html",
-  styleUrls: ["./project-card.component.css"],
+  selector: "app-project-summary",
+  templateUrl: "./project-summary.component.html",
+  styleUrls: ["./project-summary.component.css"],
 })
-export class ProjectCardComponent implements OnInit {
+export class ProjectSummaryComponent implements OnInit {
   @ViewChild("projectThumbnail", { static: true }) projectThumbnail: ElementRef;
+  datePipe: any;
+  faEdit = faEdit;
+  @Input() set projectInput(value: Project) {
+    this.project = value;
+    this.setThumbnailContent();
+  }
 
-  @Input() project: Project;
-  faCrow = faCrow;
+  public project: Project;
 
   constructor(private router: Router) {}
+
+  ngOnInit() {}
 
   get isThumbnailAttached() {
     var result =
@@ -27,7 +33,7 @@ export class ProjectCardComponent implements OnInit {
     return this.project.thumbnail;
   }
 
-  ngOnInit() {
+  setThumbnailContent() {
     this.projectThumbnail.nativeElement.src =
       "data:image/png;base64," + this.getFileContent();
   }
@@ -37,7 +43,7 @@ export class ProjectCardComponent implements OnInit {
     return result;
   }
 
-  goToProjectDetails() {
-    this.router.navigate(["/project-overview", { id: this.project.id }]);
+  editSummary() {
+    this.router.navigate(["/edit-project-summary", { id: this.project.id }]);
   }
 }

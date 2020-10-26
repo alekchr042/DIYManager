@@ -1,0 +1,30 @@
+<div class="card mb-4 shadow-sm">
+  <div class="container">
+    <div class="row p-3">
+      <div class="col-md-3">
+        <img
+          id="projectThumbnail"
+          [hidden]="!isThumbnailAttached"
+          class="img-project-card"
+          #projectThumbnail
+        />
+      </div>
+      <div class="col-md-5">
+        <h2>Name: {{ project.name }}</h2>
+        <p>Description: {{ project.description }}</p>
+      </div>
+      <div class="col-md-3">
+        <p>Last modified: {{ project.lastModified | date: "yyyy-MM-dd" }}</p>
+        <p>Started: {{ project.startDate | date: "yyyy-MM-dd" }}</p>
+        <p>Finished: {{ project.finishDate | date: "yyyy-MM-dd" }}</p>
+      </div>
+      <div class="col-md-1 action-buttons">
+        <fa-icon
+          class="small-btn-icon"
+          [icon]="faEdit"
+          (click)="editSummary()"
+        ></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>

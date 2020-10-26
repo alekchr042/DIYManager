@@ -24,10 +24,10 @@ namespace DIYManager.Models.Implementation
         public DateTime LastModified { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime FinishDate { get; set; }
+        public DateTime? FinishDate { get; set; }
 
         public Project(NewProjectDTO newProjectDTO)
         {

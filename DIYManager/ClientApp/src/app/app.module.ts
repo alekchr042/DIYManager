@@ -20,6 +20,9 @@ import { ProjectCardComponent } from "./project-card/project-card.component";
 import { AddProjectModalComponent } from "./add-project-modal/add-project-modal.component";
 import { DatePipe } from "@angular/common";
 import { ProjectOverviewComponent } from "./project-overview/project-overview.component";
+import { ProjectSummaryComponent } from "./project-summary/project-summary.component";
+import { ProjectDetailsComponent } from "./project-details/project-details.component";
+import { EditProjectSummaryComponent } from "./edit-project-summary/edit-project-summary.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { ProjectOverviewComponent } from "./project-overview/project-overview.co
     ProjectCardComponent,
     AddProjectModalComponent,
     ProjectOverviewComponent,
+    ProjectSummaryComponent,
+    ProjectDetailsComponent,
+    EditProjectSummaryComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -59,6 +65,11 @@ import { ProjectOverviewComponent } from "./project-overview/project-overview.co
       {
         path: "project-overview",
         component: ProjectOverviewComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "edit-project-summary",
+        component: EditProjectSummaryComponent,
         canActivate: [AuthGuard],
       },
     ]),
