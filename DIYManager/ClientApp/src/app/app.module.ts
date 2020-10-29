@@ -74,7 +74,7 @@ import { EditProjectSummaryComponent } from "./edit-project-summary/edit-project
       },
     ]),
   ],
-  entryComponents: [AddProjectModalComponent],
+  entryComponents: [AddProjectModalComponent, EditProjectSummaryComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     DatePipe,

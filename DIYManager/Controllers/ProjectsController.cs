@@ -1,4 +1,5 @@
-﻿using DIYManager.Models.DTO;
+﻿using DIYManager.Helpers;
+using DIYManager.Models.DTO;
 using DIYManager.Models.Implementation;
 using DIYManager.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -71,6 +72,23 @@ namespace DIYManager.Controllers
                 newProject.Thumbnail = Convert.ToBase64String(fileContent);
             }
             return projectService.Add(newProject);
+        }
+
+        [HttpPost]
+        [Route("UpdateProject")]
+        public ActionResult UpdateProject([FromForm] UpdateProjectDTO updateProjectDTO)
+        {
+            if (updateProjectDTO != null)
+            {
+                var owner = userService.Get(updateProjectDTO.OwnerId);
+
+                var project = new Project(updateProjectDTO, owner);
+
+
+                projectService.Update(project);
+            }
+
+            return Ok();
         }
     }
 }

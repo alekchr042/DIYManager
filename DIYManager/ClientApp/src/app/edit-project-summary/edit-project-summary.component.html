@@ -1,1 +1,85 @@
-<p>edit-project-summary works!</p>
+<form [formGroup]="editProjectForm" (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit project</h4>
+  </div>
+  <div class="form-group">
+    <div class="container">
+      <div class="row p-3">
+        <div class="col-md-3">
+          <label for="nameInput">Thumbnail</label>
+          <img
+            id="projectThumbnail"
+            [hidden]="!isThumbnailAttached"
+            class="img-project-card"
+            [src]="getFileContent()"
+            #projectThumbnail
+          />
+          <fa-icon
+            class="img-project-card"
+            [icon]="faCrow"
+            [hidden]="isThumbnailAttached"
+          ></fa-icon>
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            (input)="handleFileInput($event.target.files)"
+            style="display: none"
+            #fileInput
+          />
+          <button
+            type="button"
+            class="btn-block btn-primary"
+            (click)="toggleFileInput()"
+          >
+            Select file
+          </button>
+        </div>
+        <div class="col-md-9">
+          <label for="nameInput">Name</label>
+          <input
+            type="text"
+            id="nameInput"
+            class="form-control"
+            formControlName="name"
+          />
+          <div
+            *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="validation-error"
+          >
+            <div *ngIf="name.errors.required">Name is required.</div>
+          </div>
+          <label for="descriptionInput">Description</label>
+          <div class="input-group">
+            <input
+              type="text"
+              id="descriptionInput"
+              class="form-control"
+              placeholder="Description"
+              formControlName="description"
+            />
+          </div>
+          <label for="datetimepicker">Start date</label>
+          <div class="input-group date" data-provide="datepicker">
+            <input
+              type="date"
+              class="form-control"
+              formControlName="startDate"
+            />
+          </div>
+          <label for="datetimepicker">finish date</label>
+          <div class="input-group date" data-provide="datepicker">
+            <input
+              type="date"
+              class="form-control"
+              formControlName="finishDate"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-lg btn-primary btn-block">Save</button>
+  </div>
+</form>

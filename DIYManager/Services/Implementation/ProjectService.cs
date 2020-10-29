@@ -75,7 +75,7 @@ namespace DIYManager.Services.Implementation
 
         public void Update(Project objectToUpdate)
         {
-            throw new NotImplementedException();
+            var updatedProject = projects.ReplaceOne(x => x.Id == objectToUpdate.Id, objectToUpdate);
         }
     }
 }

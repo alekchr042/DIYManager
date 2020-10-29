@@ -28,4 +28,11 @@ export class ProjectsService {
   getProject(projectId: string) {
     return this.http.get<Project>(this.baseUrl + "projects/get/" + projectId);
   }
+
+  updateProject(projectToUpdate: FormData) {
+    return this.http.post(
+      this.baseUrl + "projects/UpdateProject",
+      projectToUpdate
+    );
+  }
 }

@@ -1,4 +1,5 @@
-﻿using DIYManager.Models.DTO;
+﻿using DIYManager.Helpers;
+using DIYManager.Models.DTO;
 using DIYManager.Models.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -36,6 +37,26 @@ namespace DIYManager.Models.Implementation
             Description = newProjectDTO.Description;
 
             LastModified = DateTime.Now;
+        }
+
+        public Project(UpdateProjectDTO updateProjectDTO, User owner)
+        {
+            Id = updateProjectDTO.Id;
+
+            Name = updateProjectDTO.Name;
+
+            Description = updateProjectDTO.Description;
+
+            Owner = owner;
+
+            if(updateProjectDTO.File != null)
+                Thumbnail = FileReaderHelper.ReadImageFileContent(updateProjectDTO.File);
+
+            LastModified = DateTime.Now;
+
+            StartDate = updateProjectDTO.StartDate;
+
+            FinishDate = updateProjectDTO.FinishDate;
         }
     }
 }
