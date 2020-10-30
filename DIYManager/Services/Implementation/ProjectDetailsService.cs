@@ -30,7 +30,9 @@ namespace DIYManager.Services.Implementation
 
         public ProjectDetails Get(object parameter)
         {
-            throw new NotImplementedException();
+            var result = projectDetails.Find(x => x.Id == parameter.ToString()).FirstOrDefault();
+
+            return result;
         }
 
         public IEnumerable<ProjectDetails> GetAll()
@@ -47,7 +49,7 @@ namespace DIYManager.Services.Implementation
 
         public void Update(ProjectDetails objectToUpdate)
         {
-            throw new NotImplementedException();
+            projectDetails.ReplaceOne(x => x.Id == objectToUpdate.Id, objectToUpdate);
         }
     }
 }

@@ -23,6 +23,7 @@ import { ProjectOverviewComponent } from "./project-overview/project-overview.co
 import { ProjectSummaryComponent } from "./project-summary/project-summary.component";
 import { ProjectDetailsComponent } from "./project-details/project-details.component";
 import { EditProjectSummaryComponent } from "./edit-project-summary/edit-project-summary.component";
+import { EditProjectDetailsComponent } from "./edit-project-details/edit-project-details.component";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { EditProjectSummaryComponent } from "./edit-project-summary/edit-project
     ProjectSummaryComponent,
     ProjectDetailsComponent,
     EditProjectSummaryComponent,
+    EditProjectDetailsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -74,7 +76,11 @@ import { EditProjectSummaryComponent } from "./edit-project-summary/edit-project
       },
     ]),
   ],
-  entryComponents: [AddProjectModalComponent, EditProjectSummaryComponent],
+  entryComponents: [
+    AddProjectModalComponent,
+    EditProjectSummaryComponent,
+    EditProjectDetailsComponent,
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     DatePipe,

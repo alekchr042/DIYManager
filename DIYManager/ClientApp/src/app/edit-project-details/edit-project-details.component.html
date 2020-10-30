@@ -1,0 +1,29 @@
+<form [formGroup]="editProjectDetailsForm" (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit project</h4>
+  </div>
+  <div class="form-group p-3">
+    <label for="nameInput">Designer</label>
+    <div class="input-group">
+      <input
+        type="text"
+        id="designAuthor"
+        class="form-control"
+        formControlName="designAuthor"
+      />
+    </div>
+    <label for="descriptionInput">Link to the seller</label>
+    <div class="input-group">
+      <input
+        type="text"
+        id="linkToThePatternShop"
+        class="form-control"
+        placeholder="Description"
+        formControlName="linkToThePatternShop"
+      />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-lg btn-primary btn-block">Save</button>
+  </div>
+</form>

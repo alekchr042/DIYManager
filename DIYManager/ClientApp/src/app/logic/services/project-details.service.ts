@@ -13,7 +13,20 @@ export class ProjectDetailsService {
 
   public getProjectDetails(projectId: string) {
     return this.http.get<ProjectDetails>(
-      this.baseUrl + "projectsDetails/getDetails/" + projectId
+      this.baseUrl + "projectsDetails/getDetailsForProject/" + projectId
+    );
+  }
+
+  public getProjectDetailsById(projectDetailsId: string) {
+    return this.http.get<ProjectDetails>(
+      this.baseUrl + "projectsDetails/getDetailsById/" + projectDetailsId
+    );
+  }
+
+  public updateProjectDetails(projectDetails: ProjectDetails) {
+    return this.http.post<ProjectDetails>(
+      this.baseUrl + "projectsDetails/update",
+      projectDetails
     );
   }
 }

@@ -1,6 +1,22 @@
-<p>project-details works!</p>
-
-<div style="background-color: rgb(153, 55, 115)">
-  <p>Designer: {{ projectDetails.designAuthor }}</p>
-  <p>Link to the seller: {{ projectDetails.linkToThePatternShop }}</p>
+<div class="card mb-4 shadow-sm">
+  <div class="container">
+    <div class="row p-3">
+      <div class="col-md-11">
+        <p>Designer: {{ projectDetails.designAuthor }}</p>
+        <p>
+          Link to the seller:
+          <a target="_blank" [href]="projectDetails.linkToThePatternShop"
+            >{{ projectDetails.linkToThePatternShop }}
+          </a>
+        </p>
+      </div>
+      <div class="col-md-1 action-buttons">
+        <fa-icon
+          class="small-btn-icon"
+          [icon]="faEdit"
+          (click)="editSummary()"
+        ></fa-icon>
+      </div>
+    </div>
+  </div>
 </div>

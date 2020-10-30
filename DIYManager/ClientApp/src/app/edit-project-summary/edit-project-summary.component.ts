@@ -109,6 +109,7 @@ export class EditProjectSummaryComponent implements OnInit {
       this.activeModal.close(newProject);
     }
   }
+
   ngOnInit() {
     if (this.project != null) {
       this.editProjectForm.patchValue(this.project);
