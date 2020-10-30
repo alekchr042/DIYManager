@@ -84,7 +84,6 @@ namespace DIYManager.Controllers
 
                 var project = new Project(updateProjectDTO, owner);
 
-
                 projectService.Update(project);
             }
 

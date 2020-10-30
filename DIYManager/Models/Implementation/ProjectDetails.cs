@@ -13,8 +13,11 @@ namespace DIYManager.Models.Implementation
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string ProjectId { get; set; }
+
         public string DesignAuthor { get; set; }
+
         public string LinkToThePatternShop { get; set; }
+
         public List<Note> Notes { get; set; }
     }
 }

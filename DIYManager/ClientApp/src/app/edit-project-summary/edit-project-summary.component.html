@@ -65,6 +65,7 @@
               type="date"
               class="form-control"
               formControlName="startDate"
+              value="{{ project.startDate | date: 'yyyy-MM-dd' }}"
             />
           </div>
           <label for="datetimepicker">finish date</label>
@@ -73,6 +74,7 @@
               type="date"
               class="form-control"
               formControlName="finishDate"
+              value="{{ project.finishDate | date: 'yyyy-MM-dd' }}"
             />
           </div>
         </div>

@@ -75,7 +75,18 @@ namespace DIYManager.Services.Implementation
 
         public void Update(Project objectToUpdate)
         {
-            var updatedProject = projects.ReplaceOne(x => x.Id == objectToUpdate.Id, objectToUpdate);
+            var projectToUpdate = PrepareUpdatedProject(objectToUpdate); //fix for disapearing thumbnail
+            var updatedProject = projects.ReplaceOne(x => x.Id == objectToUpdate.Id, projectToUpdate);
+        }
+
+        private Project PrepareUpdatedProject(Project updatedProject)
+        {
+            var oldVersion = Get(updatedProject.Id);
+
+            if (updatedProject.Thumbnail == null)
+                updatedProject.Thumbnail = oldVersion.Thumbnail;
+
+            return updatedProject;
         }
     }
 }

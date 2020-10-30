@@ -23,7 +23,16 @@ export class EditProjectSummaryComponent implements OnInit {
   @ViewChild("fileInput", { static: true }) fileInput: ElementRef;
   // @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
-  public project: Project;
+  _project: Project;
+  get project(): Project {
+    return this._project;
+  }
+  @Input() set project(value: Project) {
+    this._project = value;
+    this.setFormValues();
+  }
+
+  //@Input() public project: Project;
   public editProjectForm: FormGroup;
 
   private uploadedFile;
@@ -38,6 +47,10 @@ export class EditProjectSummaryComponent implements OnInit {
       startDate: new FormControl(""),
       finishDate: new FormControl(""),
     });
+  }
+
+  private setFormValues() {
+    this.editProjectForm.patchValue(this.project);
   }
 
   get name() {
