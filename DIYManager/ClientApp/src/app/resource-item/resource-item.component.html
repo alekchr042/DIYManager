@@ -1,0 +1,31 @@
+<div class="card mb-4 shadow-sm p3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div>Type: {{ resource?.type }}</div>
+        <div>Name: {{ resource?.name }}</div>
+        <div>Manufacturer: {{ resource?.manufacturer }}</div>
+      </div>
+      <div class="col-md-2">
+        <label>Is available?</label>
+        <br />
+        <input
+          id="isAvailable"
+          type="checkbox"
+          [checked]="resource?.isAvailable"
+          onclick="return false"
+        />
+      </div>
+      <div class="col-md-2">
+        <label>Is shared with another project?</label>
+        <br />
+        <input
+          id="isShared"
+          type="checkbox"
+          [checked]="resource?.isSharedWithAnotherProject"
+          onclick="return false"
+        />
+      </div>
+    </div>
+  </div>
+</div>

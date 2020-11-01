@@ -1,0 +1,17 @@
+<div class="card mb-4 shadow-sm">
+  <div class="container">
+    <div class="row p-3">
+      <div class="col-md-11"><h3>What I need:</h3></div>
+      <div class="col-md-1 action-buttons">
+        <fa-icon
+          class="small-btn-icon"
+          [icon]="faPlusSquare"
+          (click)="addResource()"
+        ></fa-icon>
+      </div>
+    </div>
+    <div class="p-3" *ngFor="let res of resources">
+      <app-resource-item [resource]="res"></app-resource-item>
+    </div>
+  </div>
+</div>

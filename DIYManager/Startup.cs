@@ -94,6 +94,7 @@ namespace DIYManager
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IProjectService, ProjectService>();
             services.AddSingleton<IProjectDetailsService, ProjectDetailsService>();
+            services.AddSingleton<IResourceService, ResourceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
