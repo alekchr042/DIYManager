@@ -3,6 +3,10 @@ import { ResourceService } from "../logic/services/resource.service";
 import { Project } from "../models/project";
 import { ResourceDTO } from "../models/resourceDTO";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { AddNewResourceComponent } from "../add-new-resource/add-new-resource.component";
+import { map } from "rxjs/operators";
+import { Resource } from "../models/resource";
 
 @Component({
   selector: "app-resource-list",
@@ -19,19 +23,74 @@ export class ResourceListComponent implements OnInit {
 
   @Input() set project(value: Project) {
     this._project = value;
-    this.getProject();
+    this.getAllResourcesForProject();
   }
+
+  private _resourceTypes: any[];
+
+  get resourceTypes() {
+    return this._resourceTypes;
+  }
+
+  set resourceTypes(value: any[]) {
+    this._resourceTypes = value;
+  }
+
   public resources: ResourceDTO[];
 
-  constructor(private resourceService: ResourceService) {}
+  constructor(
+    private resourceService: ResourceService,
+    private ngbModal: NgbModal
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.resourceService
+      .getResourceTypes()
+      .pipe(
+        map((resTypes) => {
+          const result = [];
+          resTypes.forEach((resType, index) => {
+            result.push({
+              id: index,
+              value: resType,
+            });
+          });
+          return result;
+        })
+      )
+      .subscribe((result) => {
+        this.resourceTypes = result;
+      });
+  }
 
-  getProject() {
+  getAllResourcesForProject() {
+    if (this.project != null) {
+      this.resourceService
+        .getAllForProject(this.project.id)
+        .subscribe((result) => {
+          this.resources = result;
+        });
+    }
+  }
+
+  refreshResources() {
     this.resourceService
       .getAllForProject(this.project.id)
       .subscribe((result) => {
         this.resources = result;
       });
+  }
+
+  addResource() {
+    var modal = this.ngbModal.open(AddNewResourceComponent);
+    modal.componentInstance.resourceTypes = this.resourceTypes;
+
+    modal.result.then((result: Resource) => {
+      result.projectId = this.project.id;
+      this.resourceService.addNewResource(result).subscribe(() => {
+        this.refreshResources();
+      });
+      console.log(JSON.stringify(result));
+    });
   }
 }

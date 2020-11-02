@@ -24,7 +24,9 @@ namespace DIYManager.Services.Implementation
 
         public Resource Add(Resource newObject)
         {
-            throw new NotImplementedException();
+            resources.InsertOne(newObject);
+
+            return newObject;
         }
 
         public void Delete(Resource objectToDelete)

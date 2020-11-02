@@ -1,10 +1,14 @@
-﻿using DIYManager.Models.Implementation;
+﻿using DIYManager.Helpers;
+using DIYManager.Models.DTO;
+using DIYManager.Models.Enums;
+using DIYManager.Models.Implementation;
 using DIYManager.Services.Implementation;
 using DIYManager.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,6 +33,26 @@ namespace DIYManager.Controllers
             var projects = resourceService.GetAllDtosForProject(projectId);
 
             return Ok(projects);
+        }
+
+        [HttpGet]
+        [Route("GetResourceTypes")]
+        public ActionResult<IDictionary<int, string>> GetResourceTypes()
+        {
+            var resourceTypes = EnumHelper.GetDictionaryFromEnum<ResourceType>();
+
+            return Ok(resourceTypes);
+        }
+
+        [HttpPost]
+        [Route("AddNewResource")]
+        public ActionResult<Resource> AddNewResource([FromBody] NewResourceDTO newResourceDTO)
+        {
+            var resourceToAdd = new Resource(newResourceDTO);
+
+            var newResource = resourceService.Add(resourceToAdd);
+
+            return Ok(newResource);
         }
     }
 }

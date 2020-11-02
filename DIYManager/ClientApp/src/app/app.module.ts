@@ -26,6 +26,7 @@ import { EditProjectSummaryComponent } from "./edit-project-summary/edit-project
 import { EditProjectDetailsComponent } from "./edit-project-details/edit-project-details.component";
 import { ResourceListComponent } from "./resource-list/resource-list.component";
 import { ResourceItemComponent } from "./resource-item/resource-item.component";
+import { AddNewResourceComponent } from "./add-new-resource/add-new-resource.component";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ResourceItemComponent } from "./resource-item/resource-item.component";
     EditProjectDetailsComponent,
     ResourceListComponent,
     ResourceItemComponent,
+    AddNewResourceComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -84,6 +86,7 @@ import { ResourceItemComponent } from "./resource-item/resource-item.component";
     AddProjectModalComponent,
     EditProjectSummaryComponent,
     EditProjectDetailsComponent,
+    AddNewResourceComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

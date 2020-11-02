@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
+import { Resource } from "src/app/models/resource";
 import { ResourceDTO } from "src/app/models/resourceDTO";
 
 @Injectable({
@@ -14,6 +15,17 @@ export class ResourceService {
   getAllForProject(projectId: string) {
     return this.http.get<ResourceDTO[]>(
       this.baseUrl + "resource/GetAllForProject/" + projectId
+    );
+  }
+
+  getResourceTypes() {
+    return this.http.get<string[]>(this.baseUrl + "resource/GetResourceTypes");
+  }
+
+  addNewResource(resourceDTO: Resource) {
+    return this.http.post(
+      this.baseUrl + "resource/AddNewResource",
+      resourceDTO
     );
   }
 }

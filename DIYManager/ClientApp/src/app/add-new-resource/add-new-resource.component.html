@@ -1,0 +1,71 @@
+<form [formGroup]="addResourceForm" (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New project</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="nameInput">Name</label>
+      <input
+        type="text"
+        id="nameInput"
+        class="form-control"
+        placeholder="Resource name"
+        formControlName="name"
+      />
+      <div
+        *ngIf="name.invalid && (name.dirty || name.touched)"
+        class="validation-error"
+      >
+        <div *ngIf="name.errors.required">Name is required.</div>
+      </div>
+      <label for="manufacturerInput">Manufacturer</label>
+      <div class="input-group">
+        <input
+          type="text"
+          id="manufacturerInput"
+          class="form-control"
+          placeholder="Manufacturer"
+          formControlName="manufacturer"
+        />
+      </div>
+      <label for="type">Resource types:</label>
+      <br />
+      <div class="input-group">
+        <select formControlName="type">
+          <option *ngFor="let x of resourceTypes">
+            {{ x.value }}
+          </option>
+        </select>
+      </div>
+      <div class="input-group checkbox-with-label">
+        <input
+          id="isAvailable"
+          type="checkbox"
+          formControlName="isAvailable"
+          class="checkbox"
+        />
+        <label for="isAvailable">Is available?</label>
+      </div>
+      <div class="input-group checkbox-with-label">
+        <input
+          id="isShared"
+          type="checkbox"
+          formControlName="isShared"
+          class="checkbox"
+        />
+        <label for="isShared">Is shared with another project?</label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-lg btn-primary btn-block">Save</button>
+  </div>
+</form>
