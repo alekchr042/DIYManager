@@ -28,4 +28,11 @@ export class ResourceService {
       resourceDTO
     );
   }
+
+  updateResource(resourceDTO: Resource) {
+    return this.http.post(
+      this.baseUrl + "resource/UpdateResource",
+      resourceDTO
+    );
+  }
 }

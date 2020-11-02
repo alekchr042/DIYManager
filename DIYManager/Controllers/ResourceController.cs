@@ -46,13 +46,24 @@ namespace DIYManager.Controllers
 
         [HttpPost]
         [Route("AddNewResource")]
-        public ActionResult<Resource> AddNewResource([FromBody] NewResourceDTO newResourceDTO)
+        public ActionResult<Resource> AddNewResource([FromBody] ResourceDTO newResourceDTO)
         {
             var resourceToAdd = new Resource(newResourceDTO);
 
             var newResource = resourceService.Add(resourceToAdd);
 
             return Ok(newResource);
+        }
+
+        [HttpPost]
+        [Route("UpdateResource")]
+        public ActionResult UpdateResource([FromBody] ResourceDTO resourceToUpdateDTO)
+        {
+            var resourceToUpdate = new Resource(resourceToUpdateDTO);
+
+            resourceService.Update(resourceToUpdate);
+
+            return Ok();
         }
     }
 }

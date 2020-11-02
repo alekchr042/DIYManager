@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { Resource } from "../models/resource";
+import { ResourceDTO } from "../models/resourceDTO";
 
 @Component({
   selector: "app-add-new-resource",
@@ -10,6 +11,17 @@ import { Resource } from "../models/resource";
 })
 export class AddNewResourceComponent implements OnInit {
   public addResourceForm: FormGroup;
+
+  private _resource: ResourceDTO;
+
+  get resource(): ResourceDTO {
+    return this._resource;
+  }
+
+  set resource(value: ResourceDTO) {
+    this._resource = value;
+    this.setInitialValues();
+  }
 
   private _resourceTypes: any[];
 
@@ -37,8 +49,8 @@ export class AddNewResourceComponent implements OnInit {
     return this.addResourceForm.get("isAvailable");
   }
 
-  get isShared() {
-    return this.addResourceForm.get("isShared");
+  get isSharedWithAnotherProject() {
+    return this.addResourceForm.get("isSharedWithAnotherProject");
   }
 
   constructor(public activeModal: NgbActiveModal) {
@@ -47,20 +59,33 @@ export class AddNewResourceComponent implements OnInit {
       manufacturer: new FormControl(""),
       type: new FormControl(""),
       isAvailable: new FormControl(""),
-      isShared: new FormControl(""),
+      isSharedWithAnotherProject: new FormControl(""),
     });
   }
 
   onSubmit() {
     if (this.addResourceForm.valid) {
       var newResource = this.addResourceForm.getRawValue();
+      if (this.resource != null) {
+        newResource.id = this.resource.id;
+      }
       this.activeModal.close(newResource);
     }
   }
 
   setInitialValues() {
-    this.isShared.setValue(false);
-    this.isAvailable.setValue(false);
+    if (this.resource == null) {
+      this.isSharedWithAnotherProject.setValue(false);
+      this.isAvailable.setValue(false);
+    } else {
+      this.name.setValue(this.resource.name);
+      this.manufacturer.setValue(this.resource.manufacturer);
+      this.type.setValue(this.resource.type);
+      this.isSharedWithAnotherProject.setValue(
+        this.resource.isSharedWithAnotherProject
+      );
+      this.isAvailable.setValue(this.resource.isAvailable);
+    }
   }
 
   ngOnInit() {

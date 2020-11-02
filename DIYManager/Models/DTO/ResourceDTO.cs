@@ -19,6 +19,10 @@ namespace DIYManager.Models.DTO
 
         public bool IsSharedWithAnotherProject { get; set; }
 
+        public ResourceDTO()
+        {
+        }
+
         /// <summary>
         /// Creates dto based on resource entity
         /// </summary>

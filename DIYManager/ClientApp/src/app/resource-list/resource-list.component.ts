@@ -90,7 +90,19 @@ export class ResourceListComponent implements OnInit {
       this.resourceService.addNewResource(result).subscribe(() => {
         this.refreshResources();
       });
-      console.log(JSON.stringify(result));
+    });
+  }
+
+  editResource(resource: ResourceDTO) {
+    var modal = this.ngbModal.open(AddNewResourceComponent);
+    modal.componentInstance.resourceTypes = this.resourceTypes;
+    modal.componentInstance.resource = resource;
+
+    modal.result.then((result: Resource) => {
+      result.projectId = this.project.id;
+      this.resourceService.updateResource(result).subscribe(() => {
+        this.refreshResources();
+      });
     });
   }
 }

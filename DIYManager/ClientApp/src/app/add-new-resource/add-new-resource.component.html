@@ -40,7 +40,10 @@
       <br />
       <div class="input-group">
         <select formControlName="type">
-          <option *ngFor="let x of resourceTypes">
+          <option
+            *ngFor="let x of resourceTypes"
+            [selected]="x.value === resource?.type"
+          >
             {{ x.value }}
           </option>
         </select>
@@ -56,12 +59,14 @@
       </div>
       <div class="input-group checkbox-with-label">
         <input
-          id="isShared"
+          id="isSharedWithAnotherProject"
           type="checkbox"
-          formControlName="isShared"
+          formControlName="isSharedWithAnotherProject"
           class="checkbox"
         />
-        <label for="isShared">Is shared with another project?</label>
+        <label for="isSharedWithAnotherProject"
+          >Is shared with another project?</label
+        >
       </div>
     </div>
   </div>

@@ -11,7 +11,10 @@
       </div>
     </div>
     <div class="p-3" *ngFor="let res of resources">
-      <app-resource-item [resource]="res"></app-resource-item>
+      <app-resource-item
+        [resource]="res"
+        (dblclick)="editResource(res)"
+      ></app-resource-item>
     </div>
   </div>
 </div>

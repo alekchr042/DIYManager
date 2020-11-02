@@ -85,7 +85,7 @@ namespace DIYManager.Services.Implementation
 
         public void Update(Resource objectToUpdate)
         {
-            throw new NotImplementedException();
+            resources.ReplaceOne(x => x.Id == objectToUpdate.Id, objectToUpdate);
         }
     }
 }

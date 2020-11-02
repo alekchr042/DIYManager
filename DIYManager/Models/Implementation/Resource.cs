@@ -26,20 +26,26 @@ namespace DIYManager.Models.Implementation
 
         public bool IsSharedWithAnotherProject { get; set; }
 
-        public Resource(NewResourceDTO newResource)
+        public Resource()
         {
-            ProjectId = newResource.ProjectId;
+        }
 
-            if (!string.IsNullOrEmpty(newResource.Type))
-                Type = Enum.Parse<ResourceType>(newResource.Type);
+        public Resource(ResourceDTO resourceDTO)
+        {
+            Id = resourceDTO.Id;
 
-            Name = newResource.Name;
+            ProjectId = resourceDTO.ProjectId;
 
-            Manufacturer = newResource.Manufacturer;
+            if (!string.IsNullOrEmpty(resourceDTO.Type))
+                Type = Enum.Parse<ResourceType>(resourceDTO.Type);
 
-            IsAvailable = newResource.isAvailable;
+            Name = resourceDTO.Name;
 
-            IsSharedWithAnotherProject = newResource.isShared;
+            Manufacturer = resourceDTO.Manufacturer;
+
+            IsAvailable = resourceDTO.IsAvailable;
+
+            IsSharedWithAnotherProject = resourceDTO.IsSharedWithAnotherProject;
         }
     }
 }
