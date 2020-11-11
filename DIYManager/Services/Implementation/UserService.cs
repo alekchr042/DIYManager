@@ -1,10 +1,11 @@
-﻿using DIYManager.Models.Implementation;
-using DIYManager.Models.Interfaces;
+﻿using DIYManager.Data;
+using DIYManager.Models.Implementation;
 using DIYManager.Services.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
+using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -12,16 +13,21 @@ namespace DIYManager.Services.Implementation
 {
     public class UserService : IUserService
     {
-        private readonly IMongoCollection<User> users;
+        //private readonly IMongoCollection<User> users;
+        private readonly DbSet<User> users;
 
-        public UserService(IDatabaseSettings databaseSettings,
-            IMemoryCache cache)
+        private readonly DbContext context;
+        public UserService(DiyManagerContext context)
         {
-            var client = new MongoClient(databaseSettings.ConnectionString);
+            //var client = new MongoClient(databaseSettings.ConnectionString);
 
-            var database = client.GetDatabase(databaseSettings.DatabaseName);
+            //var database = client.GetDatabase(databaseSettings.DatabaseName);
 
-            users = database.GetCollection<User>("User");
+            //users = database.GetCollection<User>("User");
+
+            users = context.User;
+
+            this.context = context;
         }
 
         public User Authenticate(string username, string password)
@@ -66,7 +72,10 @@ namespace DIYManager.Services.Implementation
 
         public User Add(User newObject)
         {
-            users.InsertOne(newObject);
+            //users.InsertOne(newObject);
+            var newUser = users.Add(newObject);
+
+            context.SaveChanges();
 
             return newObject;
         }
@@ -78,23 +87,25 @@ namespace DIYManager.Services.Implementation
 
         public User Get(object parameter)
         {
-            var id = parameter.ToString();
+            var id = int.Parse(parameter.ToString());
 
-            var result = users.Find(x => x.Id == id).FirstOrDefault();
+            //var result = users.Find(x => x.Id == id).FirstOrDefault();
+
+            var result = users.Where(x => x.Id == id).FirstOrDefault();
 
             return result;
         }
 
         public IEnumerable<User> GetAll()
         {
-            var result = users.Find(x => true).ToEnumerable();
+            var result = users.ToList();
 
             return result;
         }
 
         public User GetByUsername(string username)
         {
-            var result = users.Find(x => x.Username == username).FirstOrDefault();
+            var result = users.Where(x => x.Username == username).FirstOrDefault();
 
             return result;
         }

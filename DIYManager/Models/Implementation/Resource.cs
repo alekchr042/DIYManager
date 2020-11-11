@@ -7,14 +7,14 @@ using System;
 
 namespace DIYManager.Models.Implementation
 {
-    public class Resource : IResource
+    public class Resource// : IResource
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        //[BsonId]
+       // [BsonRepresentation(BsonType.ObjectId)]
+        public int Id { get; set; }
 
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string ProjectId { get; set; }
+        //[BsonRepresentation(BsonType.ObjectId)]
+        public int ProjectId { get; set; }
 
         public ResourceType Type { get; set; }
 

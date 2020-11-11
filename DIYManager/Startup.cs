@@ -1,19 +1,20 @@
+using DIYManager.Data;
 using DIYManager.Models.Implementation;
-using DIYManager.Models.Interfaces;
 using DIYManager.Services.Implementation;
 using DIYManager.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using DIYManager.Models.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace DIYManager
 {
@@ -91,11 +92,14 @@ namespace DIYManager
             services.AddSingleton<IAppSettings>(sp =>
                 sp.GetRequiredService<IOptions<AppSettings>>().Value);
 
-            services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<IProjectService, ProjectService>();
-            services.AddSingleton<IProjectDetailsService, ProjectDetailsService>();
-            services.AddSingleton<IResourceService, ResourceService>();
-            services.AddSingleton<IStepService, StepService>();
+            services.AddDbContext<DiyManagerContext>(options =>
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DiyManager-2;Trusted_Connection=True;MultipleActiveResultSets=true"));
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IProjectService, ProjectService>();
+            services.AddTransient<IProjectDetailsService, ProjectDetailsService>();
+            services.AddTransient<IResourceService, ResourceService>();
+            services.AddTransient<IStepService, StepService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

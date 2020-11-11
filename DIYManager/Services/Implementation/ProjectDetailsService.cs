@@ -1,26 +1,39 @@
-﻿using DIYManager.Models.Implementation;
-using DIYManager.Models.Interfaces;
+﻿using DIYManager.Data;
+using DIYManager.Models.Implementation;
 using DIYManager.Services.Interfaces;
-using MongoDB.Driver;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DIYManager.Services.Implementation
 {
     public class ProjectDetailsService : IProjectDetailsService
     {
-        private readonly IMongoCollection<ProjectDetails> projectDetails;
-        public ProjectDetailsService(IDatabaseSettings databaseSettings)
+        //private readonly IMongoCollection<ProjectDetails> projectDetails;
+        private readonly DbSet<ProjectDetails> projectDetails;
+
+        private readonly DbContext context;
+
+        public ProjectDetailsService(DiyManagerContext context)
         {
-            var client = new MongoClient(databaseSettings.ConnectionString);
+            //var client = new MongoClient(databaseSettings.ConnectionString);
 
-            var database = client.GetDatabase(databaseSettings.DatabaseName);
+            //var database = client.GetDatabase(databaseSettings.DatabaseName);
 
-            projectDetails = database.GetCollection<ProjectDetails>("ProjectDetails");
+            //projectDetails = database.GetCollection<ProjectDetails>("ProjectDetails");
+
+            projectDetails = context.ProjectDetails;
+
+            this.context = context;
         }
         public ProjectDetails Add(ProjectDetails newObject)
         {
-            throw new NotImplementedException();
+            projectDetails.Add(newObject);
+
+            context.SaveChanges();
+
+            return newObject;
         }
 
         public void Delete(ProjectDetails objectToDelete)
@@ -30,7 +43,9 @@ namespace DIYManager.Services.Implementation
 
         public ProjectDetails Get(object parameter)
         {
-            var result = projectDetails.Find(x => x.Id == parameter.ToString()).FirstOrDefault();
+            var id = int.Parse(parameter.ToString());
+
+            var result = projectDetails.Where(x => x.Id == id).FirstOrDefault();
 
             return result;
         }
@@ -42,14 +57,21 @@ namespace DIYManager.Services.Implementation
 
         public ProjectDetails GetAllForProject(string projectId)
         {
-            var result = projectDetails.Find(x => x.ProjectId == projectId).FirstOrDefault();
+            var id = int.Parse(projectId);
+
+            var result = projectDetails.Where(x => x.ProjectId == id).FirstOrDefault();
 
             return result;
         }
 
         public void Update(ProjectDetails objectToUpdate)
         {
-            projectDetails.ReplaceOne(x => x.Id == objectToUpdate.Id, objectToUpdate);
+            var existing = Get(objectToUpdate.Id);
+
+            if (existing != null)
+                context.Entry(existing).State = EntityState.Detached;
+
+            projectDetails.Update(objectToUpdate);
         }
     }
 }

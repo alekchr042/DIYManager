@@ -36,13 +36,16 @@ export class EditProjectDetailsComponent implements OnInit {
   }
 
   private setFormValues() {
-    this.editProjectDetailsForm.patchValue(this.projectDetails);
+    if (this.projectDetails != null) {
+      this.editProjectDetailsForm.patchValue(this.projectDetails);
+    }
   }
 
   onSubmit() {
     var project = this.editProjectDetailsForm.getRawValue();
-    project.id = this.projectDetails.id;
-    project.projectId = this.projectDetails.projectId;
+    if (this.projectDetails != null) {
+      project.id = this.projectDetails.id;
+    }
 
     this.activeModal.close(project);
   }

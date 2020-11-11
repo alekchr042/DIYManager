@@ -39,7 +39,14 @@ namespace DIYManager.Controllers
         [Route("update")]
         public ActionResult UpdateProjectDetails([FromBody] ProjectDetails detailsToUpdate)
         {
-            projectDetailsService.Update(detailsToUpdate);
+            if (detailsToUpdate.Id == null || detailsToUpdate.Id == 0)
+            {
+                projectDetailsService.Add(detailsToUpdate);
+            }
+            else
+            {
+                projectDetailsService.Update(detailsToUpdate);
+            }
 
             return Ok();
         }

@@ -1,8 +1,8 @@
-﻿using DIYManager.Models.DTO;
+﻿using DIYManager.Data;
+using DIYManager.Models.DTO;
 using DIYManager.Models.Implementation;
-using DIYManager.Models.Interfaces;
 using DIYManager.Services.Interfaces;
-using MongoDB.Driver;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +11,30 @@ namespace DIYManager.Services.Implementation
 {
     public class ResourceService : IResourceService
     {
-        private readonly IMongoCollection<Resource> resources;
+        //private readonly IMongoCollection<Resource> resources;
 
-        public ResourceService(IDatabaseSettings databaseSettings)
+        private readonly DbSet<Resource> resources;
+
+        private readonly DbContext context;
+
+        public ResourceService(DiyManagerContext context)
         {
-            var client = new MongoClient(databaseSettings.ConnectionString);
+            //var client = new MongoClient(databaseSettings.ConnectionString);
 
-            var database = client.GetDatabase(databaseSettings.DatabaseName);
+            //var database = client.GetDatabase(databaseSettings.DatabaseName);
 
-            resources = database.GetCollection<Resource>("Resources");
+            //resources = database.GetCollection<Resource>("Resources");
+
+            resources = context.Resource;
+
+            this.context = context;
         }
 
         public Resource Add(Resource newObject)
         {
-            resources.InsertOne(newObject);
+            resources.Add(newObject);
+
+            context.SaveChanges();
 
             return newObject;
         }
@@ -41,7 +51,8 @@ namespace DIYManager.Services.Implementation
         /// <returns>Resource specified by id</returns>
         public Resource Get(object parameter)
         {
-            var result = resources.Find(x => x.Id == parameter.ToString()).FirstOrDefault();
+            var id = int.Parse(parameter.ToString());
+            var result = resources.Where(x => x.Id == id).FirstOrDefault();
 
             return result;
         }
@@ -53,7 +64,9 @@ namespace DIYManager.Services.Implementation
         /// <returns>All resources associated with project</returns>
         public IEnumerable<Resource> GetAllForProject(object parameter)
         {
-            var result = resources.Find(x => x.ProjectId == parameter.ToString()).ToList();
+            var id = int.Parse(parameter.ToString());
+
+            var result = resources.Where(x => x.ProjectId == id).ToList();
 
             return result;
         }
@@ -78,14 +91,21 @@ namespace DIYManager.Services.Implementation
         /// <returns></returns>
         public IEnumerable<Resource> GetAll()
         {
-            var result = resources.Find(x => true).ToList();
+            var result = resources.ToList();
 
             return result;
         }
 
         public void Update(Resource objectToUpdate)
         {
-            resources.ReplaceOne(x => x.Id == objectToUpdate.Id, objectToUpdate);
+            var existing = Get(objectToUpdate.Id);
+
+            if (existing != null)
+                context.Entry(existing).State = EntityState.Detached;
+
+            resources.Update(objectToUpdate);
+
+            context.SaveChanges();
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using DIYManager.Models.Implementation;
-using DIYManager.Models.Interfaces;
+﻿using DIYManager.Data;
+using DIYManager.Models.Implementation;
 using DIYManager.Services.Interfaces;
-using MongoDB.Driver;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +10,30 @@ namespace DIYManager.Services.Implementation
 {
     public class StepService : IStepService
     {
-        private readonly IMongoCollection<Step> steps;
+        //private readonly IMongoCollection<Step> steps;
 
-        public StepService(IDatabaseSettings databaseSettings)
+        private readonly DbSet<Step> steps;
+
+        private readonly DbContext context;
+
+        public StepService(DiyManagerContext context)
         {
-            var client = new MongoClient(databaseSettings.ConnectionString);
+            //var client = new MongoClient(databaseSettings.ConnectionString);
 
-            var database = client.GetDatabase(databaseSettings.DatabaseName);
+            //var database = client.GetDatabase(databaseSettings.DatabaseName);
 
-            steps = database.GetCollection<Step>("Steps");
+            //steps = database.GetCollection<Step>("Steps");
+            steps = context.Step;
+
+            this.context = context;
         }
 
         public Step Add(Step newObject)
         {
-            steps.InsertOne(newObject);
+            //steps.InsertOne(newObject);
+            steps.Add(newObject);
+
+            context.SaveChanges();
 
             return newObject;
         }
@@ -35,7 +45,11 @@ namespace DIYManager.Services.Implementation
 
         public Step Get(object parameter)
         {
-            throw new NotImplementedException();
+            var id = int.Parse(parameter.ToString());
+
+            var result = steps.Where(x => x.Id == id).FirstOrDefault();
+
+            return result;
         }
 
         public IEnumerable<Step> GetAll()
@@ -50,14 +64,23 @@ namespace DIYManager.Services.Implementation
         /// <returns>All steps associated with given project</returns>
         public IEnumerable<Step> GetAllForProject(object parameter)
         {
-            var result = steps.Find(x => x.ProjectId == parameter.ToString()).ToList();
+            var id = int.Parse(parameter.ToString());
+
+            var result = steps.Where(x => x.ProjectId == id).ToList();
 
             return result;
         }
 
         public void Update(Step objectToUpdate)
         {
-            steps.ReplaceOne(x => x.Id == objectToUpdate.Id, objectToUpdate);
+            var existing = Get(objectToUpdate.Id);
+
+            if (existing != null)
+                context.Entry(existing).State = EntityState.Detached;
+
+            steps.Update(objectToUpdate);
+
+            context.SaveChanges();
         }
     }
 }

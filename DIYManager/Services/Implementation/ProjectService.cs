@@ -1,28 +1,39 @@
-﻿using DIYManager.Models.Implementation;
-using DIYManager.Models.Interfaces;
+﻿using DIYManager.Data;
+using DIYManager.Models.Implementation;
 using DIYManager.Services.Interfaces;
-using MongoDB.Driver;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DIYManager.Services.Implementation
 {
     public class ProjectService : IProjectService
     {
-        private readonly IMongoCollection<Project> projects;
+        //private readonly IMongoCollection<Project> projects;
 
-        public ProjectService(IDatabaseSettings databaseSettings)
+        private readonly DbSet<Project> projects;
+
+        private readonly DbContext context;
+
+        public ProjectService(DiyManagerContext context)
         {
-            var client = new MongoClient(databaseSettings.ConnectionString);
+            //var client = new MongoClient(databaseSettings.ConnectionString);
 
-            var database = client.GetDatabase(databaseSettings.DatabaseName);
+            //var database = client.GetDatabase(databaseSettings.DatabaseName);
 
-            projects = database.GetCollection<Project>("Project");
+            //projects = database.GetCollection<Project>("Project");
+
+            projects = context.Project;
+
+            this.context = context;
         }
 
         public Project Add(Project newObject)
         {
-            projects.InsertOne(newObject);
+            projects.Add(newObject);
+
+            context.SaveChanges();
 
             return newObject;
         }
@@ -41,9 +52,9 @@ namespace DIYManager.Services.Implementation
         {
             if (parameter != null)
             {
-                var projectId = parameter.ToString();
+                var projectId = int.Parse(parameter.ToString());
 
-                var result = projects.Find(x => x.Id == projectId).FirstOrDefault();
+                var result = projects.Where(x => x.Id == projectId).FirstOrDefault();
 
                 return result;
             }
@@ -56,7 +67,7 @@ namespace DIYManager.Services.Implementation
         /// <returns>List of all projects</returns>
         public IEnumerable<Project> GetAll()
         {
-            var result = projects.Find(x => true).ToEnumerable();
+            var result = projects.Where(x => true).ToList();
 
             return result;
         }
@@ -68,7 +79,9 @@ namespace DIYManager.Services.Implementation
         /// <returns>List of all projects associated with given user ID</returns>
         public IEnumerable<Project> GetAllByUser(string id)
         {
-            var result = projects.Find(x => x.Owner.Id == id).ToEnumerable();
+            var projectId = int.Parse(id);
+
+            var result = projects.Where(x => x.Owner.Id == projectId).ToList();
 
             return result;
         }
@@ -77,7 +90,14 @@ namespace DIYManager.Services.Implementation
         {
             var projectToUpdate = PrepareUpdatedProject(objectToUpdate); //fix for disapearing thumbnail
 
-            projects.ReplaceOne(x => x.Id == objectToUpdate.Id, projectToUpdate);
+            var existing = Get(objectToUpdate.Id);
+
+            if (existing != null)
+                context.Entry(existing).State = EntityState.Detached;
+
+            projects.Update(projectToUpdate);
+
+            context.SaveChanges();
         }
 
         private Project PrepareUpdatedProject(Project updatedProject)
