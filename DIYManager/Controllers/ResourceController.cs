@@ -2,15 +2,10 @@
 using DIYManager.Models.DTO;
 using DIYManager.Models.Enums;
 using DIYManager.Models.Implementation;
-using DIYManager.Services.Implementation;
 using DIYManager.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DIYManager.Controllers
 {

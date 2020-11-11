@@ -1,0 +1,17 @@
+<div class="card mb-4 shadow-sm">
+  <div class="container">
+    <div class="row p-3">
+      <div class="col-md-11"><h3>What to do:</h3></div>
+      <div class="col-md-1 action-buttons">
+        <fa-icon
+          class="small-btn-icon"
+          [icon]="faPlusSquare"
+          (click)="addStep()"
+        ></fa-icon>
+      </div>
+    </div>
+    <div class="p-3" *ngFor="let st of steps">
+      <app-steps-item [step]="st" (dblclick)="editStep(st)"></app-steps-item>
+    </div>
+  </div>
+</div>

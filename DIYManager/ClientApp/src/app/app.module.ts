@@ -27,6 +27,9 @@ import { EditProjectDetailsComponent } from "./edit-project-details/edit-project
 import { ResourceListComponent } from "./resource-list/resource-list.component";
 import { ResourceItemComponent } from "./resource-item/resource-item.component";
 import { AddNewResourceComponent } from "./add-new-resource/add-new-resource.component";
+import { StepsListComponent } from "./steps-list/steps-list.component";
+import { StepsItemComponent } from "./steps-item/steps-item.component";
+import { AddNewStepComponent } from "./add-new-step/add-new-step.component";
 
 @NgModule({
   declarations: [
@@ -48,6 +51,9 @@ import { AddNewResourceComponent } from "./add-new-resource/add-new-resource.com
     ResourceListComponent,
     ResourceItemComponent,
     AddNewResourceComponent,
+    StepsListComponent,
+    StepsItemComponent,
+    AddNewStepComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -87,6 +93,7 @@ import { AddNewResourceComponent } from "./add-new-resource/add-new-resource.com
     EditProjectSummaryComponent,
     EditProjectDetailsComponent,
     AddNewResourceComponent,
+    AddNewStepComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
