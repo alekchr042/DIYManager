@@ -12,19 +12,21 @@
   </div>
   <div class="modal-body">
     <div class="form-group">
-      <label for="nameInput">Name</label>
-      <input
-        type="text"
-        id="nameInput"
-        class="form-control"
-        placeholder="Resource name"
-        formControlName="name"
-      />
-      <div
-        *ngIf="name.invalid && (name.dirty || name.touched)"
-        class="validation-error"
-      >
-        <div *ngIf="name.errors.required">Name is required.</div>
+      <div clas="input-group">
+        <label for="nameInput">Name</label>
+        <input
+          type="text"
+          id="nameInput"
+          class="form-control"
+          placeholder="Resource name"
+          formControlName="name"
+        />
+        <div
+          *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="validation-error"
+        >
+          <div *ngIf="name.errors.required">Name is required.</div>
+        </div>
       </div>
       <div class="input-group checkbox-with-label">
         <input

@@ -59,7 +59,7 @@ export class SignInComponent {
         .pipe(first())
         .subscribe(
           (data) => {
-            this.router.navigate(["/counter"]);
+            this.router.navigate(["/my-projects"]);
           },
           (error) => {
             console.log("error sign in");
