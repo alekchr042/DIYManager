@@ -63,13 +63,17 @@ namespace DIYManager.Controllers
 
             newProject.Owner = owner;
 
-            using (var stream = new  MemoryStream())
+            if (newProjectDTO.File != null)
             {
-                newProjectDTO.File.CopyTo(stream);
 
-                var fileContent = stream.ToArray();
+                using (var stream = new MemoryStream())
+                {
+                    newProjectDTO.File.CopyTo(stream);
 
-                newProject.Thumbnail = Convert.ToBase64String(fileContent);
+                    var fileContent = stream.ToArray();
+
+                    newProject.Thumbnail = Convert.ToBase64String(fileContent);
+                }
             }
             return projectService.Add(newProject);
         }
