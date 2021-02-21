@@ -15,8 +15,8 @@ namespace DIYManager.Models.DTO
 
         public IFormFile File { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime FinishDate { get; set; }
+        public DateTime? FinishDate { get; set; }
     }
 }

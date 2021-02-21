@@ -81,7 +81,8 @@ namespace DIYManager.Services.Implementation
         {
             var projectId = int.Parse(id);
 
-            var result = projects.Where(x => x.Owner.Id == projectId).ToList();
+            var result = projects.Where(x => x.Owner.Id == projectId).OrderByDescending(x => x.LastModified).ToList();
+
 
             return result;
         }

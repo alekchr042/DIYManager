@@ -102,9 +102,17 @@ export class EditProjectSummaryComponent implements OnInit {
       newProject.append("Name", this.name.value);
       newProject.append("Id", this.project.id);
       newProject.append("OwnerId", this.project.owner.id);
-      newProject.append("StartDate", this.startDate.value);
-      newProject.append("FinishDate", this.finishDate.value);
       newProject.append("Thumbnail", this.project.thumbnail);
+      if (this.startDate.value) {
+        newProject.append("StartDate", this.startDate.value);
+      } else {
+        newProject.append("StartDate", "");
+      }
+      if (this.finishDate.value) {
+        newProject.append("FinishDate", this.finishDate.value);
+      } else {
+        newProject.append("FinishDate", "");
+      }
 
       this.activeModal.close(newProject);
     }
