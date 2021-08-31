@@ -13,5 +13,7 @@ namespace DIYManager.Services.Interfaces
         void Update(T objectToUpdate);
 
         void Delete(T objectToDelete);
+
+        void Delete(object parameter);
     }
 }

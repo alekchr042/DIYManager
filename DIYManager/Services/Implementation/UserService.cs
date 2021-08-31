@@ -106,6 +106,11 @@ namespace DIYManager.Services.Implementation
             throw new System.NotImplementedException();
         }
 
+        public void Delete(object parameter)
+        {
+            throw new NotImplementedException();
+        }
+
         private class PasswordHelper
         {
             public static HashedPassword CreatePasswordHash(string password)

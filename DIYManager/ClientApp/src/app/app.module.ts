@@ -30,6 +30,7 @@ import { AddNewResourceComponent } from "./add-new-resource/add-new-resource.com
 import { StepsListComponent } from "./steps-list/steps-list.component";
 import { StepsItemComponent } from "./steps-item/steps-item.component";
 import { AddNewStepComponent } from "./add-new-step/add-new-step.component";
+import { ConfirmDeleteModalComponent } from "./confirm-delete-modal/confirm-delete-modal.component";
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { AddNewStepComponent } from "./add-new-step/add-new-step.component";
     StepsListComponent,
     StepsItemComponent,
     AddNewStepComponent,
+    ConfirmDeleteModalComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -94,6 +96,7 @@ import { AddNewStepComponent } from "./add-new-step/add-new-step.component";
     EditProjectDetailsComponent,
     AddNewResourceComponent,
     AddNewStepComponent,
+    ConfirmDeleteModalComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

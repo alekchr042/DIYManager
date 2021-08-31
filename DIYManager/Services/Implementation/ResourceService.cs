@@ -99,5 +99,10 @@ namespace DIYManager.Services.Implementation
 
             context.SaveChanges();
         }
+
+        public void Delete(object parameter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -2,7 +2,6 @@
 using DIYManager.Models.Implementation;
 using DIYManager.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,7 +31,28 @@ namespace DIYManager.Services.Implementation
 
         public void Delete(Project objectToDelete)
         {
-            throw new NotImplementedException();
+            if (objectToDelete != null)
+            {
+                projects.Remove(objectToDelete);
+
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Delete project by its ID
+        /// </summary>
+        /// <param name="parameter">ID of project to delete</param>
+        public void Delete(object parameter)
+        {
+            if (parameter != null)
+            {
+                var project = Get(parameter);
+
+                projects.Remove(project);
+
+                context.SaveChanges();
+            }
         }
 
         /// <summary>

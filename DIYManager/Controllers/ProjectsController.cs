@@ -53,6 +53,15 @@ namespace DIYManager.Controllers
             return Ok(projects);
         }
 
+        [HttpGet]
+        [Route("Delete/{projectId}")]
+        public ActionResult Delete(string projectId)
+        {
+            projectService.Delete(projectId);
+
+            return Ok();
+        }
+
         [HttpPost]
         [Route("AddNewProject")]
         public ActionResult<Project> AddNewProject([FromForm]NewProjectDTO newProjectDTO)

@@ -34,6 +34,11 @@ namespace DIYManager.Services.Implementation
             throw new NotImplementedException();
         }
 
+        public void Delete(object parameter)
+        {
+            throw new NotImplementedException();
+        }
+
         public ProjectDetails Get(object parameter)
         {
             var id = int.Parse(parameter.ToString());

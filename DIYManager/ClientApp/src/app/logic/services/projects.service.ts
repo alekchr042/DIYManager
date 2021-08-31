@@ -35,4 +35,8 @@ export class ProjectsService {
       projectToUpdate
     );
   }
+
+  deleteProject(projectId: string) {
+    return this.http.get(this.baseUrl + "projects/Delete/" + projectId);
+  }
 }
