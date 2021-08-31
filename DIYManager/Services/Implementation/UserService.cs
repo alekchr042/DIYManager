@@ -14,18 +14,11 @@ namespace DIYManager.Services.Implementation
 {
     public class UserService : IUserService
     {
-        //private readonly IMongoCollection<User> users;
         private readonly DbSet<User> users;
 
         private readonly DbContext context;
         public UserService(DiyManagerContext context)
         {
-            //var client = new MongoClient(databaseSettings.ConnectionString);
-
-            //var database = client.GetDatabase(databaseSettings.DatabaseName);
-
-            //users = database.GetCollection<User>("User");
-
             users = context.User;
 
             this.context = context;
@@ -73,7 +66,6 @@ namespace DIYManager.Services.Implementation
 
         public User Add(User newObject)
         {
-            //users.InsertOne(newObject);
             var newUser = users.Add(newObject);
 
             context.SaveChanges();
@@ -89,8 +81,6 @@ namespace DIYManager.Services.Implementation
         public User Get(object parameter)
         {
             var id = int.Parse(parameter.ToString());
-
-            //var result = users.Find(x => x.Id == id).FirstOrDefault();
 
             var result = users.Where(x => x.Id == id).FirstOrDefault();
 

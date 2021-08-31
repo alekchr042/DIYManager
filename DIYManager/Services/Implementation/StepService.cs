@@ -10,19 +10,12 @@ namespace DIYManager.Services.Implementation
 {
     public class StepService : IStepService
     {
-        //private readonly IMongoCollection<Step> steps;
-
         private readonly DbSet<Step> steps;
 
         private readonly DbContext context;
 
         public StepService(DiyManagerContext context)
         {
-            //var client = new MongoClient(databaseSettings.ConnectionString);
-
-            //var database = client.GetDatabase(databaseSettings.DatabaseName);
-
-            //steps = database.GetCollection<Step>("Steps");
             steps = context.Step;
 
             this.context = context;
@@ -30,7 +23,6 @@ namespace DIYManager.Services.Implementation
 
         public Step Add(Step newObject)
         {
-            //steps.InsertOne(newObject);
             steps.Add(newObject);
 
             context.SaveChanges();

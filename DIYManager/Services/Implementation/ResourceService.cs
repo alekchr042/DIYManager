@@ -11,20 +11,12 @@ namespace DIYManager.Services.Implementation
 {
     public class ResourceService : IResourceService
     {
-        //private readonly IMongoCollection<Resource> resources;
-
         private readonly DbSet<Resource> resources;
 
         private readonly DbContext context;
 
         public ResourceService(DiyManagerContext context)
         {
-            //var client = new MongoClient(databaseSettings.ConnectionString);
-
-            //var database = client.GetDatabase(databaseSettings.DatabaseName);
-
-            //resources = database.GetCollection<Resource>("Resources");
-
             resources = context.Resource;
 
             this.context = context;

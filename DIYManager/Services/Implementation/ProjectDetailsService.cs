@@ -10,19 +10,12 @@ namespace DIYManager.Services.Implementation
 {
     public class ProjectDetailsService : IProjectDetailsService
     {
-        //private readonly IMongoCollection<ProjectDetails> projectDetails;
         private readonly DbSet<ProjectDetails> projectDetails;
 
         private readonly DbContext context;
 
         public ProjectDetailsService(DiyManagerContext context)
         {
-            //var client = new MongoClient(databaseSettings.ConnectionString);
-
-            //var database = client.GetDatabase(databaseSettings.DatabaseName);
-
-            //projectDetails = database.GetCollection<ProjectDetails>("ProjectDetails");
-
             projectDetails = context.ProjectDetails;
 
             this.context = context;
