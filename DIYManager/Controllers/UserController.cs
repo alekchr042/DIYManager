@@ -1,4 +1,5 @@
-﻿using DIYManager.Models.DTO;
+﻿using DIYManager.Exceptions;
+using DIYManager.Models.DTO;
 using DIYManager.Models.Implementation;
 using DIYManager.Models.Interfaces;
 using DIYManager.Services.Interfaces;
@@ -60,11 +61,17 @@ namespace DIYManager.Controllers
         {
             var newUser = new User(registerUserDTO);
 
-            var createdUser = userService.Create(newUser, registerUserDTO.Password);
-
-            if (createdUser != null)
-                return Ok(createdUser);
-            else return BadRequest();
+            try
+            {
+                var createdUser = userService.Create(newUser, registerUserDTO.Password);
+                if (createdUser != null)
+                    return Ok(createdUser);
+                else return BadRequest();
+            }
+            catch(UsernameTakenException ex)
+            {
+                return Conflict(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -75,7 +82,7 @@ namespace DIYManager.Controllers
             var user = userService.Authenticate(authenticateUserDTO.Username, authenticateUserDTO.Password);
 
             if (user == null)
-                return BadRequest();
+                return Unauthorized();
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);

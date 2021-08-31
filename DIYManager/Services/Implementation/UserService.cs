@@ -1,4 +1,5 @@
 ﻿using DIYManager.Data;
+using DIYManager.Exceptions;
 using DIYManager.Models.Implementation;
 using DIYManager.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -59,7 +60,7 @@ namespace DIYManager.Services.Implementation
             var existingUserWithTheSameUsername = GetByUsername(newUser.Username);
 
             if (existingUserWithTheSameUsername != null)
-                throw new ArgumentException("Username already taken - " + newUser.Username);
+                throw new UsernameTakenException(String.Format("Username {0} is already taken", newUser.Username));
 
             var hashedPassword = PasswordHelper.CreatePasswordHash(password);
 

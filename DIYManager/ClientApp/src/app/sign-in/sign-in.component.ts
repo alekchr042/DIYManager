@@ -17,6 +17,7 @@ export class SignInComponent {
   faCrow = faCrow;
   private signInForm: FormGroup;
   private userSubject: BehaviorSubject<User>;
+  public signInFailed: boolean;
   public user: Observable<User>;
 
   public userToAuthenticate: AuthenticateUserDTO = {
@@ -38,6 +39,7 @@ export class SignInComponent {
       JSON.parse(localStorage.getItem("user"))
     );
     this.user = this.userSubject.asObservable();
+    this.signInFailed = false;
   }
 
   get username() {
@@ -59,9 +61,11 @@ export class SignInComponent {
         .pipe(first())
         .subscribe(
           (data) => {
+            this.signInFailed = false;
             this.router.navigate(["/my-projects"]);
           },
           (error) => {
+            this.signInFailed = true;
             console.log("error sign in");
           }
         );
